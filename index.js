@@ -1,1 +1,1 @@
-import './main.css'
+require('./main.css')

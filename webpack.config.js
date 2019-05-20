@@ -1,5 +1,7 @@
 const path = require('path');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 module.exports = {
   entry: './index.js',
@@ -10,24 +12,27 @@ module.exports = {
   },
   plugins: [
     new BrowserSyncPlugin({
-      // browse to http://localhost:3000/ during development,
-      // ./public directory is being served
       host: 'localhost',
       files: ["./dist/**.html","./dist/**.css"],
       port: 3000,
       server: { baseDir: ['dist'] }
+    }),
+    new ExtractTextPlugin('styles.css', {
+      disable: process.env.NODE_ENV === 'development',
     })
   ],
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'postcss-loader'],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader',
+          ],
+        }),
       },
-      {
-        test: /\.jsx?$/,
-        use: ['babel-loader', 'astroturf/loader'],
-      }
     ]
   }
 };
