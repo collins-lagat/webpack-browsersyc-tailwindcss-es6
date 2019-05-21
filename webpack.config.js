@@ -2,13 +2,12 @@ const path = require('path');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-
 module.exports = {
   entry: './index.js',
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'my-first-webpack.bundle.js'
+    filename: 'app.bundle.js'
   },
   plugins: [
     new BrowserSyncPlugin({
@@ -33,6 +32,14 @@ module.exports = {
           ],
         }),
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/preset-env'],
+        }
+      }
     ]
   }
 };

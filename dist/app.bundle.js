@@ -93,7 +93,8 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! ./main.css */ \"./main.css\")\n\n//# sourceURL=webpack:///./index.js?");
+"use strict";
+eval("\n\n__webpack_require__(/*! ./main.css */ \"./main.css\");\n\nvar x = function x(y) {\n  return y * y;\n};\n\nconsole.log(x(6));\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
